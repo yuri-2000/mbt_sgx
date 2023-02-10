@@ -1,0 +1,25 @@
+/* enclave.edl - Top EDL file. */
+
+enclave {
+    from "sgx_tstdc.edl" import *;
+    
+    /* 
+     * ocall_enclave_sample - invokes OCALL to display string buffer inside the enclave.
+     *  [in]: copy the string buffer to App outside.
+     *  [string]: specifies 'str' is a NULL terminated buffer.
+     */
+    untrusted {
+
+    };
+
+
+    trusted {
+    	public bool ecall_loadFromFile(std::string nodeFilename, std::string edgeFilename);
+        public ecall_MerkleBTree(Graph* graph, unsigned int fanout = DEFAULT_FANOUT, Node::INDEXMETHOD indexMethod = Node::DEFAULT, std::string hashMethod = DEFAULT_HASH_METHOD);
+        public void ecall_addKey(int index, unsigned int key);
+        public void ecall_delKey();
+        public Node* ecall_getDataItem(unsigned int index);
+        public std::string ecall_generateVO(std::vector<Node*>& nodes);
+        public bool ecall_AuthenticationTree::parseVO(std::string s);
+    };
+};
